@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- Account -->
+    <bean id="account1" class="kz.iitu.atm.Account" scope="singleton">
+        <property name="login" value="123456"/>
+        <property name="balance" value="50000"/>
+        <property name="id" value="1"/>
+        <property name="pin" value="123"/>
+    </bean>
+    <bean id="account2" class="kz.iitu.atm.Account" scope="singleton">
+        <property name="login" value="654321"/>
+        <property name="balance" value="50000"/>
+        <property name="id" value="2"/>
+        <property name="pin" value="321"/>
+    </bean>
+    <bean id="bankServiceBean" class="kz.iitu.atm.BankServiceForBean"
+          init-method="init" destroy-method="destroy" scope="singleton">
+        <property name="url" value="jdbc:postgresql://localhost:5433/atm"></property>
+        <property name="password" value="madiyar"></property>
+        <property name="user" value="madiyar"></property>
+    </bean>
+    <bean id="bank" class="kz.iitu.atm.Bank" scope="singleton">
+        <property name="accounts">
+            <list>
+                <ref bean="account1"/>
+                <ref bean="account2"/>
+            </list>
+        </property>
+        <property name="id" value="1"/>
+        <property name="name" value="KASPI"/>
+    </bean>
+
+</beans>
